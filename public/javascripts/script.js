@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('IronGenerator JS imported successfully!');
 
-  /*document.getElementById('myForm').addEventListener('submit', (e) => {
+  document.getElementById('myForm').addEventListener('submit', (e) => {
     e.preventDefault();
 
     var formData = new FormData();
@@ -40,5 +40,5 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     xhr.send(formData);
-  })*/
+  })
 }, false);
