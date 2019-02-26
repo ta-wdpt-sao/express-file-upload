@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-  console.log('IronGenerator JS imported successfully!');
-
   document.getElementById('myForm').addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -10,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     var file = document.getElementById('myFile').files[0];
     formData.append('name', name);
     formData.append('photo', file);
+    
+    // with XMLHttpRequest
+    /*
     var xhr = new XMLHttpRequest();
     
     // your url upload
@@ -40,5 +40,29 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     xhr.send(formData);
+    */
+
+    // with axios
+    axios.post('/upload', formData, {
+      onUploadProgress: event => {
+        if (event.lengthComputable) {
+          var percentage = (event.loaded / event.total) * 100;
+          console.log(percentage + "%");
+  
+          document.getElementById('progress-bar').style.width = percentage + "%";
+          document.getElementById('progress-bar').innerHTML = parseInt(percentage) + " %";
+  
+          if(percentage == 100) {
+            document.getElementById('progress-bar').innerHTML = 'Success!';
+          }
+        }
+      }
+    })
+    .then(response => {
+      window.location.reload();
+    })
+    .catch(err => {
+      console.log(err);
+    })
   })
 }, false);
